@@ -4,13 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Postagem {
 	private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long idPostagem;
 	private @NotBlank String titulo;
 	private @NotBlank String descricao;
+	
+	@ManyToOne
+	@JoinColumn(name = "criador_id")
+	@JsonIgnoreProperties({"minhasPostagens"})
+	private Usuario criador;
+
+	@ManyToOne
+	@JoinColumn(name = "tema_id")
+	@JsonIgnoreProperties({"postagens"})
+	private Tema temaRelacionado;
 	
 	public Long getIdPostagem() {
 		return idPostagem;
@@ -30,4 +44,17 @@ public class Postagem {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	public Usuario getCriador() {
+		return criador;
+	}
+	public Tema getTemaRelacionado() {
+		return temaRelacionado;
+	}
+	public void setCriador(Usuario criador) {
+		this.criador = criador;
+	}
+	public void setTemaRelacionado(Tema temaRelacionado) {
+		this.temaRelacionado = temaRelacionado;
+	}
+	
 }
