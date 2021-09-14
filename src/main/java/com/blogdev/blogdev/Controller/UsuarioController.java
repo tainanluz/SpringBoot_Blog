@@ -75,7 +75,7 @@ public class UsuarioController {
 
 	@GetMapping("/nome/{nome_usuario}")
 	public ResponseEntity<List<Usuario>> buscarPorNomeI(@PathVariable(value = "nome_usuario") String nome) {
-		List<Usuario> objetoLista = repository.findAllByNome(nome);
+		List<Usuario> objetoLista = repository.findAllByNomeContainingIgnoreCase(nome);
 
 		if (objetoLista.isEmpty()) {
 			return ResponseEntity.status(204).build();
@@ -86,7 +86,7 @@ public class UsuarioController {
 
 	@GetMapping("/pesquisa")
 	public ResponseEntity<List<Usuario>> buscarPorNomeII(@RequestParam(defaultValue = "") String nome) {
-		List<Usuario> objetoLista = repository.findAllByNome(nome);
+		List<Usuario> objetoLista = repository.findAllByNomeContainingIgnoreCase(nome);
 
 		if (objetoLista.isEmpty()) {
 			return ResponseEntity.status(204).build();
@@ -94,12 +94,12 @@ public class UsuarioController {
 			return ResponseEntity.status(200).body(objetoLista);
 		}
 	}
-
+/*
 	@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> atualizar(@Valid @RequestBody Usuario usuarioParaAtualizar) {
 		return ResponseEntity.status(201).body(repository.save(usuarioParaAtualizar));
 	}
-  
+ */
 	@PutMapping("/alterar")
 	public ResponseEntity<Object> alterar(@Valid @RequestBody UsuarioDTO usuarioParaAlterar) {
 		Optional<?> objetoAlterado = service.alterarUsuario(usuarioParaAlterar);

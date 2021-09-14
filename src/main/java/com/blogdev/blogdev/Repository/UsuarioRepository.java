@@ -12,7 +12,7 @@ import com.blogdev.blogdev.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	// Método utilizado para pesquisar coluna nome ContainigIgnoreCase
-	List<Usuario> findAllByNome(String nome);
+	List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
 	
 	//Método utilizado para pesquisar coluna email
 	Optional<Usuario> findByEmail(String email);
